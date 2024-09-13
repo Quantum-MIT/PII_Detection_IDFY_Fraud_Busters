@@ -44,6 +44,9 @@ python backend3.py
 ## Demo [Important]
 * For a clean demo, use the AWS Access keys [non-vulnerable keys] provided in the config.json file
 * Go to http://127.0.0.1:5000 to use the app [or whatever shows localhost shows in the terminal]
+* backend.py and backend2.py local file and AWS S3 support:
+![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1nrgyHr0EZNMhhKjDPYJVeYHD3OEcMxpt)
+* backend3.py AWS S3 and MYSQL support:
 ![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1nrgyHr0EZNMhhKjDPYJVeYHD3OEcMxpt)
 
 
