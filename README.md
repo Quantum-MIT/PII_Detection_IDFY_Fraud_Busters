@@ -1,5 +1,6 @@
 # PII_Detection_IDFY_Fraud_Busters
  Personally Identifiable Information (PII) Detection
+ ![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1nrgyHr0EZNMhhKjDPYJVeYHD3OEcMxpt)
 # PII Identification
 
  Problem Statement: 
@@ -48,6 +49,8 @@ python backend3.py
 ![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1nrgyHr0EZNMhhKjDPYJVeYHD3OEcMxpt)
 * backend3.py AWS S3 and MYSQL support:
 ![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1pQ_hvsyaGfzPUWBiubZXwyGzJWGhmvI4)
+* Output PII Risk Score:
+![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1jAFlBRQ62874sr4zWxgz57mCTjgJRHga)
 
 
 ## License
