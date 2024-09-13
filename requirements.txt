@@ -8,3 +8,10 @@ logging
 joblib
 torch
 transformers
+random
+numpy
+sklearn
+faker
+pickle
+sqlalchemy
+pymysql
