@@ -47,7 +47,7 @@ python backend3.py
 * backend.py and backend2.py local file and AWS S3 support:
 ![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1nrgyHr0EZNMhhKjDPYJVeYHD3OEcMxpt)
 * backend3.py AWS S3 and MYSQL support:
-![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1nrgyHr0EZNMhhKjDPYJVeYHD3OEcMxpt)
+![PII Risk Scoring](https://drive.google.com/file/d/1pQ_hvsyaGfzPUWBiubZXwyGzJWGhmvI4/view?usp=sharing)
 
 
 ## License
