@@ -1,0 +1,10 @@
+flask
+re
+boto3
+pandas
+nltk
+werkzeug.utils
+logging
+joblib
+torch
+transformers
