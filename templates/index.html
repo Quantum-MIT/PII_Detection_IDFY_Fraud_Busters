@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PII Identification and Risk Scoring</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- CSS Styling -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1822&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #f0f0f0;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.75);
+            width: 90%;
+            max-width: 700px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeIn 1.2s ease-in-out;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #f0f0f0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 28px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        textarea, input[type="file"], input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background-color: #2b2b2b;
+            font-size: 16px;
+            color: #f0f0f0;
+            margin-bottom: 20px;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            resize: none;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus, input[type="file"]:focus, input[type="text"]:focus, input[type="password"]:focus {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            background-color: #3d3d3d;
+        }
+
+        button {
+            padding: 12px 40px;
+            background-color: #5e72e4;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(78, 84, 200, 0.5);
+        }
+
+        button:hover {
+            background-color: #4859d4;
+            box-shadow: 0 6px 15px rgba(78, 84, 200, 0.7);
+        }
+
+        .result {
+            background-color: rgba(0, 0, 0, 0.75);
+            width: 90%;
+            max-width: 700px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeIn 1.2s ease-in-out;
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            transform: translateY(10px);
+        }
+
+        h2, h3 {
+            color: #f0f0f0;
+            font-weight: 500;
+        }
+
+        ul {
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        ul li {
+            color: #cccccc;
+            font-size: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+        }
+
+        .risk-score {
+            font-size: 24px;
+            font-weight: 600;
+            color: #d9534f;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #cccccc;
+        }
+
+        @media (max-width: 768px) {
+            textarea {
+                height: 120px;
+            }
+
+            button {
+                width: 100%;
+                padding: 12px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PII Identification and Risk Scoring</h1>
+        <form id="piiForm">
+            <textarea id="textInput" placeholder="Enter text here..."></textarea><br>
+            <input type="file" id="fileInput" accept=".txt" /><br>
+            
+            <h2>AWS S3 Credentials (Optional)</h2>
+            <input type="text" id="awsRegion" placeholder="AWS Region"><br>
+            <input type="text" id="awsAccessKey" placeholder="AWS Access Key"><br>
+            <input type="text" id="awsSecretKey" placeholder="AWS Secret Key"><br>
+
+            <h2>MySQL Database Credentials</h2>
+            <input type="text" id="mysqlHost" placeholder="MySQL Host (e.g., localhost)"><br>
+            <input type="text" id="mysqlPort" placeholder="MySQL Port Number (e.g., 3306)"><br>
+            <input type="text" id="mysqlUser" placeholder="MySQL Username"><br>
+            <input type="password" id="mysqlPassword" placeholder="MySQL Password"><br>
+            <input type="text" id="mysqlDatabase" placeholder="MySQL Database Name"><br>
+            <input type="text" id="mysqlTable" placeholder="MySQL Table Name"><br>
+
+            <button type="submit">Analyze PII</button>
+        </form>
+        
+        <div id="result" class="result">
+            <h2>PII Identified:</h2>
+            <ul id="piiList"></ul>
+            <h3>Risk Score: <span id="riskScore" class="risk-score"></span></h3>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; Made by MITADRU DATTA for IDFY Hackathon
+    </div>
+
+    <script>
+        document.getElementById('piiForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const textInput = document.getElementById('textInput').value;
+            const fileInput = document.getElementById('fileInput').files[0];
+            const awsRegion = document.getElementById('awsRegion').value;
+            const awsAccessKey = document.getElementById('awsAccessKey').value;
+            const awsSecretKey = document.getElementById('awsSecretKey').value;
+
+            const mysqlHost = document.getElementById('mysqlHost').value;
+            const mysqlPort = document.getElementById('mysqlPort').value;
+            const mysqlUser = document.getElementById('mysqlUser').value;
+            const mysqlPassword = document.getElementById('mysqlPassword').value;
+            const mysqlDatabase = document.getElementById('mysqlDatabase').value;
+            const mysqlTable = document.getElementById('mysqlTable').value;
+
+            console.log("Form submitted!");
+            console.log("Text Input: ", textInput);
+            console.log("AWS Region: ", awsRegion);
+            console.log("AWS Access Key: ", awsAccessKey);
+            console.log("AWS Secret Key: ", awsSecretKey);
+            console.log("MySQL Host: ", mysqlHost);
+            console.log("MySQL Port: ", mysqlPort);
+            console.log("MySQL User: ", mysqlUser);
+            console.log("MySQL Database: ", mysqlDatabase);
+            console.log("MySQL Table: ", mysqlTable);
+
+            if (fileInput) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileContent = e.target.result;
+                    console.log("File Content: ", fileContent);
+                    processText(fileContent);
+                };
+                reader.readAsText(fileInput);
+            } else if (textInput || (awsRegion && awsAccessKey && awsSecretKey) || (mysqlHost && mysqlPort && mysqlUser && mysqlDatabase && mysqlTable)) {
+                console.log("Processing text...");
+                processText(textInput);
+            } else {
+                alert('Please provide text, upload a file, AWS S3 credentials, or MySQL credentials.');
+            }
+
+            function processText(text) {
+                console.log("Sending data to Flask backend...");
+
+                fetch('/pii', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        'text': text || '',
+                        'aws_region': awsRegion || '',
+                        'aws_access_key': awsAccessKey || '',
+                        'aws_secret_key': awsSecretKey || '',
+                        'mysql_host': mysqlHost || '',
+                        'mysql_port': mysqlPort || '',
+                        'mysql_user': mysqlUser || '',
+                        'mysql_password': mysqlPassword || '',
+                        'mysql_database': mysqlDatabase || '',
+                        'mysql_table': mysqlTable || ''
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Response from backend:", data);
+                    if (data.error) {
+                        alert("Error: " + data.error);
+                    } else {
+                        const piiList = document.getElementById('piiList');
+                        piiList.innerHTML = '';
+
+                        data.pii_entities.forEach(pii => {
+                            const li = document.createElement('li');
+                            li.textContent = `${pii[0]}: ${pii[1]}`;
+                            piiList.appendChild(li);
+                        });
+
+                        document.getElementById('riskScore').textContent = data.risk_score;
+                        document.getElementById('result').style.display = 'block';
+                    }
+                })
+                .catch(err => {
+                    console.error("Error sending data to backend:", err);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
