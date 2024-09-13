@@ -46,10 +46,10 @@ python backend3.py
 * For a clean demo, use the AWS Access keys [non-vulnerable keys] provided in the config.json file
 * Go to http://127.0.0.1:5000 to use the app [or whatever shows localhost shows in the terminal]
 * backend.py and backend2.py local file and AWS S3 support:
-![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1nrgyHr0EZNMhhKjDPYJVeYHD3OEcMxpt)
+![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1PwX27hz54TONk4oIUjCGTBz64i0F5lD6)
 * backend3.py AWS S3 and MYSQL support:
 ![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1pQ_hvsyaGfzPUWBiubZXwyGzJWGhmvI4)
-* Output PII Risk Score:
+* Output PII Risk Score After pressing the "Analyze PII" button:
 ![PII Risk Scoring](https://drive.google.com/uc?export=view&id=1jAFlBRQ62874sr4zWxgz57mCTjgJRHga)
 
 
